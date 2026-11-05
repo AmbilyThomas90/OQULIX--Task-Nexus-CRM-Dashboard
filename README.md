@@ -24,10 +24,10 @@ npm run dev
 ```
 Open the local URL printed by Vite (usually http://localhost:5173).
 
+Live Demo
 
-## Deploy (Vercel)
-
-
+## Deploy (Cloudflare)
+Live Application:https://oqulix--task-nexus-crm-dashboard.pages.dev/
 ## Project structure
 ```text
 src/
