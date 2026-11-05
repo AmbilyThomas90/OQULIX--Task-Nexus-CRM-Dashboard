@@ -9,7 +9,6 @@ A responsive Mini CRM Dashboard built with React, Vite, JavaScript, Tailwind CSS
 - Form validation for required fields and email format
 - LocalStorage persistence (data survives page refresh)
 - Recently added customers and customer growth visualization
-- Export customer records to CSV
 - Separate Dashboard and Customers pages switched from the sidebar
 - Responsive sidebar and layout for mobile/tablet/desktop
 - Initial mock customer records
