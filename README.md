@@ -27,7 +27,7 @@ Open the local URL printed by Vite (usually http://localhost:5173).
 Live Demo
 
 ## Deploy (Cloudflare)
-Live Application:https://oqulix--task-nexus-crm-dashboard.pages.dev/
+Live Application:  https://oqulix--task-nexus-crm-dashboard.pages.dev/
 ## Project structure
 ```text
 src/
@@ -46,10 +46,6 @@ src/
 - `useEffect` persists the customer list to LocalStorage.
 - `useMemo` derives the filtered customer list efficiently.
 - Customer records use a unique numeric `id`; new customers get the current date.
-- The initial mock data is used only when no saved LocalStorage data exists. To reset the demo, clear the `nexus-crm-customers` key in browser LocalStorage and refresh.
 
-## Before submission
-- Run `npm install` and `npm run build`.
-- Test add, edit, delete, search, filters and refresh persistence.
-- Replace the sample profile name/email if desired.
-- Add your own GitHub repository and deployed URL to your submission message.
+
+
