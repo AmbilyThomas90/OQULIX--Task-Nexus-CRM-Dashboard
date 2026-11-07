@@ -18,6 +18,7 @@ const emptyForm = {
 export default function CustomerModal({
   open,
   customer,
+  customers = [],
   onClose,
   onSave
 }) {
@@ -45,40 +46,87 @@ export default function CustomerModal({
 
   if (!open) return null
 
+  // Update form values
   const update = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
+  // Validate and submit form
   const submit = (e) => {
     e.preventDefault()
 
     const next = {}
-   // Validate customer name
+
+    // Validate customer name
     if (!form.name.trim()) {
       next.name = 'Please enter the customer name.'
     }
- // Validate email address using a regular expression
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+
+    // Validate email address
+    const email = form.email.trim().toLowerCase()
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+    if (!email) {
+      next.email = 'Please enter an email address.'
+    } else if (!emailRegex.test(email)) {
       next.email = 'Enter a valid email address.'
+    } else {
+      // Prevent duplicate email addresses
+      const duplicateEmail = customers.some((existingCustomer) => {
+        const sameEmail =
+          existingCustomer.email?.trim().toLowerCase() === email
+
+        // Exclude the current customer while editing
+        const isSameCustomer =
+          customer &&
+          (
+            (customer.id && existingCustomer.id === customer.id) ||
+            (customer._id && existingCustomer._id === customer._id) ||
+            existingCustomer === customer
+          )
+
+        return sameEmail && !isSameCustomer
+      })
+
+      if (duplicateEmail) {
+        next.email = 'This email address is already registered.'
+      }
     }
-// Validate phone number
-    if (!form.phone.trim()) {
+
+    // Validate Indian mobile phone number
+    const phone = form.phone.trim()
+
+    const cleanedPhone = phone.replace(/[\s()-]/g, '')
+
+    const phoneRegex = /^(?:\+91)?[6-9]\d{9}$/
+
+    if (!phone) {
       next.phone = 'Please enter a phone number.'
+    } else if (!phoneRegex.test(cleanedPhone)) {
+      next.phone = 'Enter a valid 10-digit Indian mobile number.'
     }
- // Validate company name
+
+    // Validate company name
     if (!form.company.trim()) {
       next.company = 'Please enter a company name.'
     }
 
     setErrors(next)
 
+    // Save only when all validations pass
     if (Object.keys(next).length === 0) {
       onSave({
         ...form,
+        name: form.name.trim(),
+        email,
+        phone: cleanedPhone,
+        company: form.company.trim(),
         dateAdded: customer?.dateAdded || today
       })
     }
   }
+
   // Display the customer modal UI
   return (
     <div
@@ -149,6 +197,7 @@ export default function CustomerModal({
               Phone number
               <input
                 name="phone"
+                type="tel"
                 value={form.phone}
                 onChange={update}
                 placeholder="+91 9876543210"
@@ -196,6 +245,7 @@ export default function CustomerModal({
                 readOnly
                 className="today-date-input"
               />
+
               <small className="date-hint">
                 Today's date is automatically added.
               </small>

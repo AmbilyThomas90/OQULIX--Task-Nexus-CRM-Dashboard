@@ -88,7 +88,14 @@ export default function App() {
         <footer className="footer"><span>© 2026 Nexus CRM. Built for better relationships.</span><span>Made with care <span className="heart">♥</span></span></footer>
       </div>
     </main>
-    <CustomerModal open={modalOpen} customer={editing} onClose={closeModal} onSave={saveCustomer}/>
+    <CustomerModal
+      open={modalOpen}
+      customer={editing}
+      customers={customers}
+      onClose={closeModal}
+      onSave={saveCustomer}
+    />
+
     {toast && <div className="toast">✓ {toast}</div>}
   </div>
 }

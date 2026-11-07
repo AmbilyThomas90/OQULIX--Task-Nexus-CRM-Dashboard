@@ -193,7 +193,7 @@ export default function Dashboard({ customers = [], onViewAll }) {
                     >
                       {c.status}
                     </span>
-
+                    {/* {/* Display fallback text if date is missing */}
                     <span className="recent-date">
                       {c.dateAdded
                         ? new Date(
@@ -203,7 +203,7 @@ export default function Dashboard({ customers = [], onViewAll }) {
                             day: 'numeric',
                             year: 'numeric',
                           })
-                        : 'No date'}   // Display fallback text if date is missing
+                        : 'No date'}   
                     </span>
 
                   </div>
